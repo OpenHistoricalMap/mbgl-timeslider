@@ -115,26 +115,5 @@ document.addEventListener('DOMContentLoaded', function(event) {
         MAP.addControl(urlwriter);
     });
 
-    //
-    // example of a custom UI which can affect the TimeSliderControl
-    //
-
-    function applyExternalYear () {
-        var year = document.querySelector('#whenami input').value;
-        if (! year) return;
-
-        year = parseInt(year);
-        var min = year - 10;
-        var max = year + 10;
-
-        timeslider.setDate(year).setRange([ min, max ]);
-    }
-
-    document.querySelector('#whenami button').addEventListener('click', applyExternalYear);
-
-    document.querySelector('#whenami input').addEventListener('keydown', function (event) {
-        if (event.keyCode == 13) document.querySelector('#whenami button').click();
-    });
-
     // that's it!
 });
