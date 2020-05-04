@@ -1072,47 +1072,6 @@ var GLMAP_STYLE = {
       }
     },
     {
-      "id": "roads_railyard",
-      "type": "line",
-      "source": "osm",
-      "source-layer": "transport_lines",
-      "minzoom": 14,
-      "maxzoom": 24,
-      "filter": [
-        "any",
-        [
-          "in",
-          "type",
-          "rail",
-          "disused"
-        ],
-        [
-          "in",
-          "service",
-          "yard",
-          "siding"
-        ]
-      ],
-      "layout": {
-        "visibility": "visible"
-      },
-      "paint": {
-        "line-color": "rgba(153, 153, 153, 1)",
-        "line-width": {
-          "stops": [
-            [
-              15,
-              0.35
-            ],
-            [
-              20,
-              2.25
-            ]
-          ]
-        }
-      }
-    },
-    {
       "id": "roads_steps",
       "type": "line",
       "source": "osm",
