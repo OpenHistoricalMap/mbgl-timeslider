@@ -1,0 +1,166 @@
+$defaulticoncolor: #333333;
+$defaulttextcolor: #333333;
+$bordercolor: #AAAAAA;
+$lighttextcolor: #666666;
+
+$defaultbgcolor: white;
+$borderradius: 4px;
+$boxshadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+
+$sliderbgcolor: #F0F0F0;
+$slidehandlecolor: $defaulticoncolor;
+$sliderheight: 22px;
+
+$numberbgcolor: white;
+
+/*
+ * THE TIME SLIDER CONTROL
+ */
+
+.mbgl-control-timeslider {
+    /*
+     * WIDTH
+     */
+
+    width: 50vw;
+    @media screen and (max-width: 500px) {
+        width: 100%;
+    }
+
+    /*
+     * BROAD STYLE FOR CONTROL
+     * background and box-shadow to match stock MBGL controls
+     */
+
+    background-color: $defaultbgcolor;
+
+    border-radius: $borderradius;
+
+    -moz-box-shadow: $boxshadow;
+    -webkit-box-shadow: $boxshadow;
+    box-shadow: $boxshadow;
+
+    padding: 5px 5px 5px 5px;
+
+    /*
+     * LEFT / BAR / RIGHT
+     */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .mbgl-control-timeslider-section-rhs {
+        width: 80px;
+        height: 50px;
+        text-align: center;
+    }
+    .mbgl-control-timeslider-section-lhs {
+        width: 80px;
+        height: 50px;
+        text-align: center;
+    }
+    .mbgl-control-timeslider-section-cnt {
+        width: calc(100% - 170px);
+        height: 50px;
+        text-align: center;
+    }
+
+    /*
+     * BUTTONS AND CONTROLS
+     */
+
+    .mbgl-control-timeslider-button {
+        cursor: pointer;
+        vertical-align: text-top;
+
+        .mbgl-control-timeslider-backbutton {
+        }
+        .mbgl-control-timeslider-forwardbutton {
+        }
+    }
+
+    .mbgl-control-timeslider-dateinput {
+        width: 70px;
+
+        font-size: 16px;
+        color: $defaulttextcolor;
+        text-align: center;
+
+        margin-top: 5px;
+
+        &::-webkit-inner-spin-button, 
+        &::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+
+        border: 1px solid transparent;
+        background: transparent;
+        text-decoration: underline;
+
+        cursor: text;
+        &:hover, &:focus {
+            border-color: $bordercolor;
+            background-color: $numberbgcolor;
+            text-decoration: none;  /* undo the default underline above */
+        }
+
+        &.mbgl-control-timeslider-dateinput-min {
+        }
+        &.mbgl-control-timeslider-dateinput-max {
+        }
+        &.mbgl-control-timeslider-dateinput-current {
+            color: $lighttextcolor;
+        }
+    }
+
+    /*
+     * THE SLIDER BAR
+     * strip the usual range input styles, apply our own
+     */
+
+    input.mbgl-control-timeslider-sliderbar {
+        width: 100%;
+        height: $sliderheight;
+
+        -webkit-appearance: none;
+        appearance: none;
+        background: $sliderbgcolor;
+        outline: none;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: $sliderheight;
+            height: $sliderheight;
+            background: $slidehandlecolor;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        &::-moz-range-thumb {
+            width: $sliderheight;
+            height: $sliderheight;
+            background: $slidehandlecolor;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
+}
+
+
+/*
+ * THE URL READER/WRITER CONTROLS
+ * have no visible UI at all, but are required to have a DIV
+ */
+
+.mbgl-control-timeslider-urlhashreader {
+    display: none !important;
+}
+
+.mbgl-control-timeslider-urlhashwriter {
+    display: none !important;
+}

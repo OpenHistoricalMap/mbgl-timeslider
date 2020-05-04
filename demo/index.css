@@ -1,0 +1,88 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    background-color:#fff;
+    width: 100%;
+    height: 100vh;
+}
+
+#splashmessage {
+    padding: 15px;
+    margin-right: 50px;
+    display: block;
+    max-width: 1200px;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+#splashmessage img {
+    float: left;
+    height: 100px;
+}
+
+#splashmessage h1 {
+    font-size: 24px;
+}
+
+#splashmessage h1, p {
+    margin-left: 100px;
+}
+
+/*
+ * a When Am I panel illustrating the use of external controls to adjust the TimeSliderControl
+ */
+
+#whenami {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+
+    border-radius: 4px;
+
+    background-color: white;
+
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+
+    width: 2in;
+
+    padding: 1em;
+}
+
+#whenami button {
+}
+
+#whenami input {
+    width: calc(100% - 50px);
+}
+
+/*
+ * TimeSliderControl may be styled in the containing page via CSS
+ * including individual components, or the positioning and style of the control as a whole
+ */
+.mbgl-control-timeslider {
+    position: absolute;
+    top: 0;
+    right: 40px;
+}
+
+.mbgl-control-timeslider {
+    background-color: #dfe2e2;
+    color: #656565;
+}
+
+.mbgl-control-timeslider .mbgl-control-timeslider-buttonset i {
+    color: #656565;
+}
+
+.mbgl-control-timeslider .mbgl-control-timeslider-sliderbar {
+    background-color: white !important;
+}
+
+.mbgl-control-timeslider .mbgl-control-timeslider-sliderbar::-webkit-slider-thumb,
+.mbgl-control-timeslider .mbgl-control-timeslider-sliderbar::-moz-range-thumb {
+    background-color: #656565 !important;
+}
