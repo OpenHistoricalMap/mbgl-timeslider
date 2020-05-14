@@ -16,7 +16,7 @@ var GLMAP_STYLE = {
     "osm": {
       "type": "vector",
       "tiles": [
-        "http://vtiles.openhistoricalmap.org/maps/osm/{z}/{x}/{y}.pbf"
+        "https://vtiles.openhistoricalmap.org/maps/osm/{z}/{x}/{y}.pbf"
       ]
     }
   },
