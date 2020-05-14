@@ -16,7 +16,7 @@ var GLMAP_STYLE = {
     "osm": {
       "type": "vector",
       "tiles": [
-        "http://a6b82cbe9c8af4b89b5c2a7c4e965129-1982216956.us-east-1.elb.amazonaws.com:9090/maps/osm/{z}/{x}/{y}.pbf"
+        "http://vtiles.openhistoricalmap.org/maps/osm/{z}/{x}/{y}.pbf"
       ]
     }
   },
