@@ -521,7 +521,7 @@ var TimeSliderControl = exports.TimeSliderControl = function () {
 
             var datesubfilter = ['all',
             // has OSM ID, and also a start and end date defined (even if blank)
-            ['has', 'osm_id'], ['any', ['has', 'start_date'], ['has', 'end_date']],
+            ['has', 'osm_id'],
             // numerical start/end date either absent (beginning/end of time) or else within range
             ['any', ['!has', 'start_decdate'], ['<=', 'start_decdate', maxdate]], ['any', ['!has', 'end_decdate'], ['>=', 'end_decdate', mindate]]];
 
