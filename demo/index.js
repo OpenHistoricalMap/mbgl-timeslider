@@ -1,7 +1,8 @@
-// demo: South Bronx
-// data ranges 1873-2019, but let's start with a narrower window so the user has an excuse to stretch the range
-var START_ZOOM = 15;
-var START_CENTER = [7.8124,48.5724];
+// demo: rendering test bed
+// data ranges -4000-2020
+
+var START_ZOOM = 13;
+var START_CENTER = [-121.73937,47.75410];
 var OHM_SOURCE = "osm";
 var STARTING_DATE = 1850;
 var DATE_RANGE = [ -4000, (new Date()).getFullYear() - 1 ];
