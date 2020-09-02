@@ -1489,7 +1489,7 @@ var GLMAP_STYLE = {
         "text-font": ["Open Sans Regular"],
         "symbol-placement": "point",
         "text-transform": "uppercase",
-        "text-justify": "auto"
+        "text-justify": "center"
       },
       "paint": {
         "text-color": "rgba(101, 108, 108, 1)",
