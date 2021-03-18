@@ -1,16 +1,34 @@
 // demo: rendering test bed
 // data ranges -4000-2020
 
-var START_ZOOM = 13;
-var START_CENTER = [-121.73937,47.75410];
-var OHM_SOURCE = "osm";
-var STARTING_DATE = 1850;
-var DATE_RANGE = [ -4000, (new Date()).getFullYear() - 1 ];
+let START_ZOOM = 13;
+let START_CENTER = [-121.73937,47.75410];
 
-// when the timeslider comes up, let's keep a reference to it so we can fetch/set it externally
-var MAP, timeslider;
+const OHM_SOURCE = "osm";
 
-document.addEventListener('DOMContentLoaded', function(event) {
+const STARTING_DATE = 1850;
+const DATE_RANGE = [ -4000, (new Date()).getFullYear() - 1 ];
+
+const MAP_STYLE_URL = "https://openhistoricalmap.github.io/map-styles/ohm_timeslider_tegola/tegola-ohm.json";
+
+let MAP, TIMESLIDER, GLMAP_STYLE;
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // load the map style JSON file into the big GLMAP_STYLE constant, then proceed to set up the map
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            GLMAP_STYLE = JSON.parse(this.responseText);
+            initMap();
+        }
+    };
+    xhttp.open("GET", MAP_STYLE_URL, true);
+    xhttp.send();
+});
+
+
+function initMap () {
     //
     // some hacks which improve the visual smoothness of the page loading
     // 1. read the hash from the URL and see if we should override the zoom and center
@@ -68,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     //
 
     MAP.on('load', function () {
-        timeslider = new TimeSlider.TimeSliderControl({
+        TIMESLIDER = new TimeSlider.TimeSliderControl({
             // set the data source to define which layers will be filtered
             sourcename: OHM_SOURCE,
             // set the initial slider range and date selection
@@ -97,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 console.log([ 'range changed', newrange[0], newrange[1] ]);
             }
         });
-        MAP.addControl(timeslider);
+        MAP.addControl(TIMESLIDER);
 
         //
         // and the controls which handle URL hashes
@@ -106,15 +124,13 @@ document.addEventListener('DOMContentLoaded', function(event) {
         //
 
         const urlreader = new TimeSlider.UrlHashReader({
-            timeslidercontrol: timeslider,
+            timeslidercontrol: TIMESLIDER,
         });
         MAP.addControl(urlreader);
 
         const urlwriter = new TimeSlider.UrlHashWriter({
-            timeslidercontrol: timeslider,
+            timeslidercontrol: TIMESLIDER,
         });
         MAP.addControl(urlwriter);
     });
-
-    // that's it!
-});
+}
