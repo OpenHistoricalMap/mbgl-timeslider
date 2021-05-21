@@ -64,6 +64,17 @@ MAP.on('load', function () {
 
 `iconClassHome` -- For the UI buttons, the CSS class to apply to the Home button which returns the slider to the original starting date. By default this is `fa fa-home` to make a home/house using FontAwesome.
 
+`autoPlaySeconds` -- When auto-play is engaged, wait this many seconds between changes. Default is 1.0 seconds.
+
+`autoPlayYearsPerTick` -- When auto-play is engaged, each tick will advance this many years. Default is 1 year.
+
+`autoPlayYearsPerTickFast` -- Same as `autoPlayYearsPerTick` but used when auto-play is running "faster". Default is 10 years.
+
+`iconClassPlay` -- For the UI buttons, the CSS class to apply to the Play button which starts automatic year advancement.
+
+`iconClassFastPlay` -- For the UI buttons, the CSS class to apply to the Play button which starts automatic year advancement at more years per tick.
+
+`iconClassPause` -- For the UI buttons, the CSS class to apply to the Pause button which stops automatic year advancement.
 
 
 ## Methods
@@ -90,6 +101,9 @@ MAP.on('load', function () {
 
 * `isDateWithinLimit(year)` -- Return true or false, indicating whether the given date is within the `datelimit` limitations and thus could be legal for `setDate()` et al.
 
+* `startAutoPlay(fast, backwards)` -- Start auto-play, which advances the slider automatically on a timer. An optional `fast` parameter may be given as `true` to make the auto-play advance by more years per tick. An optional `backwards` parameter may be given as `true` to have the advancement go in reverse.
+
+* `stopAutoPlay()` -- Stop auto-play.
 
 
 ## Additional Tools: UrlHashReader and UrlHashWriter
@@ -145,7 +159,7 @@ Most edits would be made to these files:
 
 Commands of note:
 * `nvm install && nvm use && yarn install` -- first-time project setup to set up the proper version of Node and the dependencies; you probably only need to do this the first time you set up, after you `git clone` the repo
-* `npm run serve` -- start a web server andopen a new browser window; use this in conjunction with `npm run watch` for your day-to-day work
+* `npm run serve` -- start a web server and open a new browser window; use this in conjunction with `npm run watch` for your day-to-day work
 * `npm run watch` -- watches for changes to the files listed above, automagically running `npm run build` for you when they are changed
 * `npm run build` -- compile the control for distribution and use in other browsers and sites; output goes into the `dist/` folder
 

@@ -20,6 +20,12 @@ export class TimeSliderControl {
             loadIconStyleSheet: "https://use.fontawesome.com/releases/v5.8.1/css/all.css",
             iconClassForward: 'fa fa-plus',
             iconClassBack: 'fa fa-minus',
+            iconClassPlay: 'fa fa-play',
+            iconClassPause: 'fa fa-pause',
+            iconClassFastPlay: 'fa fa-forward',
+            autoPlayYearsPerTick: 1,
+            autoPlayYearsPerTickFast: 10,
+            autoPlaySeconds: 1.0,
         }, options);
 
         if (! this.options.date) {
@@ -56,10 +62,20 @@ export class TimeSliderControl {
             <input type="number" step="1" min="" max="" class="mbgl-control-timeslider-dateinput mbgl-control-timeslider-dateinput-min" />
         </div>
         <div class="mbgl-control-timeslider-section-cnt">
-            <i class="mbgl-control-timeslider-button mbgl-control-timeslider-backbutton ${this.options.iconClassBack}"></i>
-            <input type="number" step="1" min="" max="" class="mbgl-control-timeslider-dateinput mbgl-control-timeslider-dateinput-current" />
-            <i class="mbgl-control-timeslider-button mbgl-control-timeslider-forwardbutton ${this.options.iconClassForward}"></i>
-            <br/>
+            <div class="mbgl-control-timeslider-section-cnt-toprow">
+                <div class="mbgl-control-timeslider-section-yearinput">
+                    <i class="mbgl-control-timeslider-button mbgl-control-timeslider-backbutton ${this.options.iconClassBack}"></i>
+                    <input type="number" step="1" min="" max="" class="mbgl-control-timeslider-dateinput mbgl-control-timeslider-dateinput-current" />
+                    <i class="mbgl-control-timeslider-button mbgl-control-timeslider-forwardbutton ${this.options.iconClassForward}"></i>
+                </div>
+                <div class="mbgl-control-timeslider-section-playcontrols">
+                    <i class="mbgl-control-timeslider-button mbgl-control-timeslider-playbutton-fastbackward ${this.options.iconClassFastPlay}"></i>
+                    <i class="mbgl-control-timeslider-button mbgl-control-timeslider-playbutton-backward ${this.options.iconClassPlay}"></i>
+                    <i class="mbgl-control-timeslider-button mbgl-control-timeslider-playbutton-pause ${this.options.iconClassPause}"></i>
+                    <i class="mbgl-control-timeslider-button mbgl-control-timeslider-playbutton-forward ${this.options.iconClassPlay}"></i>
+                    <i class="mbgl-control-timeslider-button mbgl-control-timeslider-playbutton-fastforward ${this.options.iconClassFastPlay}"></i>
+                </div>
+            </div>
             <input type="range" min="" max="" value="" step="1" class="mbgl-control-timeslider-sliderbar" />
         </div>
         <div class="mbgl-control-timeslider-section-rhs">
@@ -68,21 +84,31 @@ export class TimeSliderControl {
         </div>
         `;
 
-        this._forwardbutton = this._container.querySelector('i.mbgl-control-timeslider-forwardbutton');
-        this._backbutton    = this._container.querySelector('i.mbgl-control-timeslider-backbutton');
-        this._mindateinput  = this._container.querySelector('input.mbgl-control-timeslider-dateinput-min');
-        this._maxdateinput  = this._container.querySelector('input.mbgl-control-timeslider-dateinput-max');
-        this._datereadout   = this._container.querySelector('input.mbgl-control-timeslider-dateinput-current');
-        this._sliderbar     = this._container.querySelector('input.mbgl-control-timeslider-sliderbar');
+        this._forwardbutton          = this._container.querySelector('i.mbgl-control-timeslider-forwardbutton');
+        this._backbutton             = this._container.querySelector('i.mbgl-control-timeslider-backbutton');
+        this._mindateinput           = this._container.querySelector('input.mbgl-control-timeslider-dateinput-min');
+        this._maxdateinput           = this._container.querySelector('input.mbgl-control-timeslider-dateinput-max');
+        this._datereadout            = this._container.querySelector('input.mbgl-control-timeslider-dateinput-current');
+        this._sliderbar              = this._container.querySelector('input.mbgl-control-timeslider-sliderbar');
+        this._playpausebutton        = this._container.querySelector('i.mbgl-control-timeslider-playbutton-pause');
+        this._playforwardbutton      = this._container.querySelector('i.mbgl-control-timeslider-playbutton-forward');
+        this._playbackwardbutton     = this._container.querySelector('i.mbgl-control-timeslider-playbutton-backward');
+        this._playfastforwardbutton  = this._container.querySelector('i.mbgl-control-timeslider-playbutton-fastforward');
+        this._playfastbackwardbutton = this._container.querySelector('i.mbgl-control-timeslider-playbutton-fastbackward');
 
         // add titles
         // could do this in HTML above, but kind of nice to have all the text in one area
-        this._forwardbutton.title   = `Shift time forward by one year`;
-        this._backbutton.title      = `Shift time backward by one year`;
-        this._mindateinput.title    = `Set the range and resolution of the slider, as far back as ${this.options.datelimit[0]}`;
-        this._maxdateinput.title    = `Set the range and resolution of the slider, as far forward as ${this.options.datelimit[1]}`;
-        this._datereadout.title     = `Manually enter a year to set the date filtering`;
-        this._sliderbar.title       = `Adjust the slider to set the date filtering`;
+        this._forwardbutton.title           = `Shift time forward by one year`;
+        this._backbutton.title              = `Shift time backward by one year`;
+        this._mindateinput.title            = `Set the range and resolution of the slider, as far back as ${this.options.datelimit[0]}`;
+        this._maxdateinput.title            = `Set the range and resolution of the slider, as far forward as ${this.options.datelimit[1]}`;
+        this._datereadout.title             = `Manually enter a year to set the date filtering`;
+        this._sliderbar.title               = `Adjust the slider to set the date filtering`;
+        this._playpausebutton.title         = `Stop automatic advancement of time.`;
+        this._playforwardbutton.title       = `Start automatic advancement of time.`;
+        this._playbackwardbutton.title      = `Start automatic advancement of time, running backward.`;
+        this._playfastforwardbutton.title   = `Start automatic advancement of time, at a faster rate.`;
+        this._playfastbackwardbutton.title  = `Start automatic advancement of time, running backward at a faster rate.`;
 
         // add event handlers: + - buttons, text inputs, ...
         this._forwardbutton.addEventListener('click', (event) => {
@@ -106,6 +132,31 @@ export class TimeSliderControl {
         });
         this._maxdateinput.addEventListener('change', () => {
             this.setRangeUpper(this._maxdateinput.value);
+        });
+        this._playpausebutton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            this.stopAutoPlay();
+        });
+        this._playforwardbutton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            this.startAutoPlay(false, false);
+        });
+        this._playbackwardbutton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            this.startAutoPlay(false, true);
+        });
+        this._playfastforwardbutton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            this.startAutoPlay(true, false);
+        });
+        this._playfastbackwardbutton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            this.startAutoPlay(true, true);
         });
 
         // get started!
@@ -131,6 +182,8 @@ export class TimeSliderControl {
             this.setRange(this.options.range);
             this.options.onReady.call(this);
         }, 0.25 * 1000);
+
+        this.stopAutoPlay();  // to update UI
 
         // done; hand back our UI element as expected by the framework
         return this._container;
@@ -413,6 +466,40 @@ export class TimeSliderControl {
             this._map.setFilter(layer.id, newfilters);
             // console.debug([ `TimeSliderControl _applyDateFilterToLayers() ${layer.id} filters is now:`, newfilters ]);
         });
+    }
+
+    startAutoPlay (faster=false, backwards=false) {
+        this.stopAutoPlay();
+
+        let yearspertick = faster ? this.options.autoPlayYearsPerTickFast : this.options.autoPlayYearsPerTick;
+        if (backwards) yearspertick *= -1;
+
+        this.autoplaytimer = setInterval(() => {
+            let nextyear = this.getDate() + yearspertick;
+            if (this.isDateWithinRange(nextyear)) {
+                this.setDate(nextyear);
+            }
+        }, this.options.autoPlaySeconds * 1000);
+
+
+        this._playpausebutton.classList.remove('mbgl-control-timeslider-section-playcontrols-active');
+        if (! faster && ! backwards) this._playforwardbutton.classList.add('mbgl-control-timeslider-section-playcontrols-active');
+        if (! faster && backwards)   this._playbackwardbutton.classList.add('mbgl-control-timeslider-section-playcontrols-active');
+        if (faster && ! backwards)   this._playfastforwardbutton.classList.add('mbgl-control-timeslider-section-playcontrols-active');
+        if (faster && backwards)     this._playfastbackwardbutton.classList.add('mbgl-control-timeslider-section-playcontrols-active');
+    }
+
+    stopAutoPlay () {
+        if (this.autoplaytimer) {
+            clearInterval(this.autoplaytimer);
+            this.autoplaytimer = undefined;
+        }
+
+        this._playpausebutton.classList.add('mbgl-control-timeslider-section-playcontrols-active');
+        this._playforwardbutton.classList.remove('mbgl-control-timeslider-section-playcontrols-active');
+        this._playbackwardbutton.classList.remove('mbgl-control-timeslider-section-playcontrols-active');
+        this._playfastforwardbutton.classList.remove('mbgl-control-timeslider-section-playcontrols-active');
+        this._playfastbackwardbutton.classList.remove('mbgl-control-timeslider-section-playcontrols-active');
     }
 }
 
