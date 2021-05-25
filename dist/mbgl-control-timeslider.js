@@ -484,13 +484,9 @@ var TimeSliderControl = exports.TimeSliderControl = function () {
         value: function _setupDateFiltersForLayers() {
             var _this3 = this;
 
-            // filtering by date has two parts:
-            // OHM features which lack a OSM ID are "eternal" such as coastlines and mountain ranges; they will lack dates but should always match all date filters
-            // OHM features which have a OSM ID, should be on the list of OSM IDs which _applyDateFilterToLayers() will figure out when the time comes
-            //
             // strategy here:
             // we inject the osmfilteringclause, ensuring it falls into sequence as filters[1]
-            // this osmfilteringclause will be rewritten by _applyDateFilterToLayers() to accmmodate both date-filtered features and eternal features
+            // right now this is something always true, but filters[1] will be rewritten by _applyDateFilterToLayers() to apply date filtering
             //
             // warning: we are mutating someone else's map style in-place, and they may not be expecting that
             // if they go and apply their own filters later, it could get weird
@@ -498,9 +494,7 @@ var TimeSliderControl = exports.TimeSliderControl = function () {
             var layers = this._getFilteredMapLayers();
 
             layers.forEach(function (layer) {
-                // the OSM ID filter which we will prepend to the layer's own filters
-                // the filter here is that OSM ID is missing, indicating features lacking a OSM ID, meaning "eternal" features such as coastline
-                var osmfilteringclause = ['any', ['!has', 'osm_id']];
+                var osmfilteringclause = ['any', ['>', '1', '0']];
 
                 var oldfilters = _this3._map.getFilter(layer.id);
                 layers.oldfiltersbackup = oldfilters; // keep a backup of the original filters for _removeDateFiltersForLayers()
@@ -563,8 +557,6 @@ var TimeSliderControl = exports.TimeSliderControl = function () {
             // console.debug([ `TimeSliderControl _applyDateFilterToLayers date range is: ${mindate} - ${maxdate}`]);
 
             var datesubfilter = ['all',
-            // has OSM ID, and also a start and end date defined (even if blank)
-            ['has', 'osm_id'],
             // numerical start/end date either absent (beginning/end of time) or else within range
             ['any', ['!has', 'start_decdate'], ['<=', 'start_decdate', maxdate]], ['any', ['!has', 'end_decdate'], ['>=', 'end_decdate', mindate]]];
 
