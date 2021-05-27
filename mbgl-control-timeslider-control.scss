@@ -80,9 +80,11 @@ $numberbgcolor: white;
         cursor: pointer;
         vertical-align: text-top;
 
+        &.mbgl-control-timeslider-forwardbutton,
         &.mbgl-control-timeslider-backbutton {
-        }
-        &.mbgl-control-timeslider-forwardbutton {
+            font-weight: bold;
+            font-size: 18px;
+            vertical-align: baseline;
         }
 
         &.mbgl-control-timeslider-playbutton-pause {
@@ -149,6 +151,8 @@ $numberbgcolor: white;
         }
         &.mbgl-control-timeslider-dateinput-current {
             color: $lighttextcolor;
+            font-weight: bold;
+            font-size: 18px;
         }
     }
 
