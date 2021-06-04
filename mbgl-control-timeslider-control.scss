@@ -193,6 +193,31 @@ $numberbgcolor: white;
 
 
 /*
+ * MOBILE
+ * hide mostly everything except -year+
+ */
+
+@media screen and (max-width: 550px) {
+    .mbgl-control-timeslider {
+        .mbgl-control-timeslider-section-playcontrols,
+        .mbgl-control-timeslider-sliderbar,
+        .mbgl-control-timeslider-section-lhs,
+        .mbgl-control-timeslider-section-rhs {
+            display: none;
+        }
+
+        .mbgl-control-timeslider-section-cnt .mbgl-control-timeslider-section-cnt-toprow > div:first-child {
+            padding-right: 0;
+        }
+
+        .mbgl-control-timeslider-section-cnt {
+            height: unset;
+        }
+    }
+}
+
+
+/*
  * THE URL READER/WRITER CONTROLS
  * have no visible UI at all, but are required to have a DIV
  */
