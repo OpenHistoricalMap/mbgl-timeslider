@@ -9,7 +9,7 @@ const OHM_SOURCE = "osm";
 const STARTING_DATE = 1850;
 const DATE_RANGE = [ -4000, (new Date()).getFullYear() - 1 ];
 
-const MAP_STYLE_URL = "woodblock.json";
+const MAP_STYLE_URL = "https://openhistoricalmap.github.io/map-styles/woodblock/woodblock.json";
 
 let MAP, TIMESLIDER, GLMAP_STYLE;
 
