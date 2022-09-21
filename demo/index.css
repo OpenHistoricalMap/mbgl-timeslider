@@ -6,10 +6,10 @@ body, html {
 #map {
     background-color:#fff;
     width: 100%;
-    height: 100vh;
+    height: 80vh;
 }
 
-#splashmessage {
+.splashmessage {
     padding: 15px;
     margin-right: 50px;
     display: block;
@@ -17,16 +17,16 @@ body, html {
     font-family: Helvetica,Arial,sans-serif;
 }
 
-#splashmessage img {
+.splashmessage img {
     float: left;
     height: 100px;
 }
 
-#splashmessage h1 {
+.splashmessage h1 {
     font-size: 24px;
 }
 
-#splashmessage h1, p {
+.splashmessage h1, p {
     margin-left: 100px;
 }
 
@@ -63,7 +63,16 @@ body, html {
  * TimeSliderControl may be styled in the containing page via CSS
  * including individual components, or the positioning and style of the control as a whole
  */
+.mapboxgl-ctrl-bottom-left {
+    bottom: 85px;
+    left: 20px;
+}
 .mbgl-control-timeslider {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.mbgl-control-timeslider-topright {
     position: absolute;
     top: 0;
     right: 40px;

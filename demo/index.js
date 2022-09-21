@@ -1,9 +1,8 @@
 // demo: rendering test bed
 // data ranges -4000-2020
 
-let START_ZOOM = 13;
-let START_CENTER = [-121.73937,47.75410];
-
+let START_ZOOM = 2.53;
+let START_CENTER = [20.824,29.023];
 const OHM_SOURCE = "osm";
 
 const STARTING_DATE = 1850;
@@ -47,6 +46,11 @@ function initMap () {
     }
 
     var hide_these_layers_until_startup = [];
+    
+    GLMAP_STYLE = 'mapbox://styles/mapbox/satellite-streets-v11';
+    // Bug - the start and end dates do not appear when using the above. 
+    // Need to load layers, and prevent foreach error when no additional layers are loaded.
+    /*
     GLMAP_STYLE
     .layers
     .forEach(function (layer) {
@@ -57,18 +61,22 @@ function initMap () {
         layer.layout.visibility = 'none';
         hide_these_layers_until_startup.push(layer.id);
     });
-
+    */
+    
     //
     // the basic map and controls
     // the map style is in mapstyle.js
     //
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGF0YXBvcnRhbCIsImEiOiJjam1tOXhpeGUwZ3IyM3BtbGIwbWV1NjIxIn0.K07Nah9ZjewCR0iV4pYw_Q';
 
     MAP = new mapboxgl.Map({
         container: "map",
         style: GLMAP_STYLE,
         zoom: START_ZOOM,
-        center: START_CENTER
+        center: START_CENTER,
+        projection: 'globe'
     });
+    MAP.scrollZoom.disable(); /* Becomes enabled when clicking map. */
 
     MAP.addControl(new mapboxgl.NavigationControl());
 
@@ -80,6 +88,10 @@ function initMap () {
         maxWidth: 80,
         unit: 'metric'
     }));
+    MAP.on('style.load', () => {
+        // Set the default atmosphere style
+        MAP.setFog({});
+    });
 
     //
     // add our date slider in the map's load event
@@ -132,5 +144,13 @@ function initMap () {
             timeslidercontrol: TIMESLIDER,
         });
         MAP.addControl(urlwriter);
+
+        MAP.on('click', function() {
+            if (MAP.scrollZoom.isEnabled()) {
+              MAP.scrollZoom.disable();
+            } else {
+              MAP.scrollZoom.enable();
+            }
+        });
     });
 }
