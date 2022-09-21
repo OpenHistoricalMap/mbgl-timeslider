@@ -63,6 +63,11 @@ body, html {
  * TimeSliderControl may be styled in the containing page via CSS
  * including individual components, or the positioning and style of the control as a whole
  */
+.mbgl-control-timeslider-topright {
+    position: absolute;
+    top: 0;
+    right: 40px;
+}
 .mapboxgl-ctrl-bottom-left {
     bottom: 85px;
     left: 20px;
@@ -71,18 +76,9 @@ body, html {
     position: fixed;
     bottom: 0;
     left: 0;
-}
-.mbgl-control-timeslider-topright {
-    position: absolute;
-    top: 0;
-    right: 40px;
-}
-
-.mbgl-control-timeslider {
-    background-color: #dfe2e2;
     color: #656565;
+    background-color: rgba(200, 200, 200, 0.9);
 }
-
 .mbgl-control-timeslider .mbgl-control-timeslider-buttonset i {
     color: #656565;
 }

@@ -80,10 +80,10 @@ function initMap () {
 
     MAP.addControl(new mapboxgl.NavigationControl());
 
-    MAP.addControl(new mapboxgl.ScaleControl({
-        maxWidth: 80,
-        unit: 'imperial'
-    }));
+    //MAP.addControl(new mapboxgl.ScaleControl({
+    //    maxWidth: 80,
+    //    unit: 'imperial'
+    //}));
     MAP.addControl(new mapboxgl.ScaleControl({
         maxWidth: 80,
         unit: 'metric'
