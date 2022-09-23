@@ -67,7 +67,8 @@ function initMap () {
         container: "map",
         style: GLMAP_STYLE,
         zoom: START_ZOOM,
-        center: START_CENTER
+        center: START_CENTER,
+        projection: 'globe'
     });
 
     MAP.addControl(new mapboxgl.NavigationControl());

@@ -492,40 +492,41 @@ var TimeSliderControl = exports.TimeSliderControl = function () {
             // if they go and apply their own filters later, it could get weird
 
             var layers = this._getFilteredMapLayers();
+            if (layers) {
+                layers.forEach(function (layer) {
+                    var osmfilteringclause = ['any', ['>', '1', '0']];
 
-            layers.forEach(function (layer) {
-                var osmfilteringclause = ['any', ['>', '1', '0']];
+                    var oldfilters = _this3._map.getFilter(layer.id);
+                    layers.oldfiltersbackup = oldfilters; // keep a backup of the original filters for _removeDateFiltersForLayers()
 
-                var oldfilters = _this3._map.getFilter(layer.id);
-                layers.oldfiltersbackup = oldfilters; // keep a backup of the original filters for _removeDateFiltersForLayers()
+                    var newfilters = void 0;
+                    if (oldfilters === undefined) {
+                        // no filter at all, so create one
+                        newfilters = ["all", osmfilteringclause];
+                        // console.debug([ `TimeSliderControl _setupDateFiltersForLayers() NoFilter ${layer.id}`, oldfilters, newfilters ]);
+                    } else if (oldfilters[0] === 'all') {
+                        // all clause; we can just insert our clause into position as filters[1]
+                        newfilters = oldfilters.slice();
+                        newfilters.splice(1, 0, osmfilteringclause);
+                        // console.debug([ `TimeSliderControl _setupDateFiltersForLayers() AllFilter ${layer.id}`, oldfilters, newfilters ]);
+                    } else if (oldfilters[0] === 'any') {
+                        // any clause; wrap theirs into a giant clause, prepend ours with an all
+                        newfilters = ["all", osmfilteringclause, [oldfilters]];
+                        // console.debug([ `TimeSliderControl _setupDateFiltersForLayers() AnyFilter ${layer.id}`, oldfilters, newfilters ]);
+                    } else if (Array.isArray(oldfilters)) {
+                        // an array forming a single, simple-style filtering clause; rewrap as an "all"
+                        newfilters = ["all", osmfilteringclause, oldfilters];
+                        // console.debug([ `TimeSliderControl _setupDateFiltersForLayers() ArrayFilter ${layer.id}`, oldfilters, newfilters ]);
+                    } else {
+                        // some other condition I had not expected and need to figure out
+                        console.error(oldfilters);
+                        throw 'TimeSliderControl _setupDateFiltersForLayers() got unexpected filtering condition on layer ' + layerid + ' for the developer to figure out';
+                    }
 
-                var newfilters = void 0;
-                if (oldfilters === undefined) {
-                    // no filter at all, so create one
-                    newfilters = ["all", osmfilteringclause];
-                    // console.debug([ `TimeSliderControl _setupDateFiltersForLayers() NoFilter ${layer.id}`, oldfilters, newfilters ]);
-                } else if (oldfilters[0] === 'all') {
-                    // all clause; we can just insert our clause into position as filters[1]
-                    newfilters = oldfilters.slice();
-                    newfilters.splice(1, 0, osmfilteringclause);
-                    // console.debug([ `TimeSliderControl _setupDateFiltersForLayers() AllFilter ${layer.id}`, oldfilters, newfilters ]);
-                } else if (oldfilters[0] === 'any') {
-                    // any clause; wrap theirs into a giant clause, prepend ours with an all
-                    newfilters = ["all", osmfilteringclause, [oldfilters]];
-                    // console.debug([ `TimeSliderControl _setupDateFiltersForLayers() AnyFilter ${layer.id}`, oldfilters, newfilters ]);
-                } else if (Array.isArray(oldfilters)) {
-                    // an array forming a single, simple-style filtering clause; rewrap as an "all"
-                    newfilters = ["all", osmfilteringclause, oldfilters];
-                    // console.debug([ `TimeSliderControl _setupDateFiltersForLayers() ArrayFilter ${layer.id}`, oldfilters, newfilters ]);
-                } else {
-                    // some other condition I had not expected and need to figure out
-                    console.error(oldfilters);
-                    throw 'TimeSliderControl _setupDateFiltersForLayers() got unexpected filtering condition on layer ' + layerid + ' for the developer to figure out';
-                }
-
-                // apply the new filter, with the placeholder "eternal features" filter now prepended
-                _this3._map.setFilter(layer.id, newfilters);
-            });
+                    // apply the new filter, with the placeholder "eternal features" filter now prepended
+                    _this3._map.setFilter(layer.id, newfilters);
+                });
+            }
         }
     }, {
         key: '_removeDateFiltersForLayers',
@@ -559,13 +560,14 @@ var TimeSliderControl = exports.TimeSliderControl = function () {
             var datesubfilter = ['all',
             // numerical start/end date either absent (beginning/end of time) or else within range
             ['any', ['!has', 'start_decdate'], ['<=', 'start_decdate', maxdate]], ['any', ['!has', 'end_decdate'], ['>=', 'end_decdate', mindate]]];
-
-            layers.forEach(function (layer) {
-                var newfilters = _this5._map.getFilter(layer.id).slice();
-                newfilters[1][2] = datesubfilter.slice();
-                _this5._map.setFilter(layer.id, newfilters);
-                // console.debug([ `TimeSliderControl _applyDateFilterToLayers() ${layer.id} filters is now:`, newfilters ]);
-            });
+            if (layers) {
+                layers.forEach(function (layer) {
+                    var newfilters = _this5._map.getFilter(layer.id).slice();
+                    newfilters[1][2] = datesubfilter.slice();
+                    _this5._map.setFilter(layer.id, newfilters);
+                    // console.debug([ `TimeSliderControl _applyDateFilterToLayers() ${layer.id} filters is now:`, newfilters ]);
+                });
+            }
         }
     }, {
         key: 'startAutoPlay',
