@@ -177,14 +177,16 @@ function initMap () {
     // Layer List
     // After the last frame rendered before the map enters an "idle" state.
     MAP.on('idle', () => {
+        //console.log("layers");
+        //console.log(MAP.getStyle().layers);
         // Not source-layer.  What's the name of the borders layer?
         // If these two layers were not added to the map, abort
-        if (!MAP.getLayer('source-layer') || !MAP.getLayer('earthquakes-layer')) {
-        //return;
+        if (!MAP.getLayer('land') || !MAP.getLayer('earthquakes-layer')) {
+            return;
         }
          
         // Enumerate ids of the layers.
-        const toggleableLayerIds = ['source-layer', 'earthquakes-layer'];
+        const toggleableLayerIds = ['land', 'earthquakes-layer'];
          
         // Set up the corresponding toggle button for each layer.
         for (const id of toggleableLayerIds) {
