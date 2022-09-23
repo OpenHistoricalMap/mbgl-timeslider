@@ -47,10 +47,10 @@ function initMap () {
 
     var hide_these_layers_until_startup = [];
     
-    GLMAP_STYLE = 'mapbox://styles/mapbox/satellite-streets-v11';
+    //GLMAP_STYLE = 'mapbox://styles/mapbox/satellite-streets-v11';
     // Bug - the start and end dates do not appear when using the above. 
     // Need to load layers, and prevent foreach error when no additional layers are loaded.
-    /*
+    
     GLMAP_STYLE
     .layers
     .forEach(function (layer) {
@@ -60,8 +60,9 @@ function initMap () {
         if (! layer.layout) layer.layout = { visibility: 'visible' };
         layer.layout.visibility = 'none';
         hide_these_layers_until_startup.push(layer.id);
+        console.log("layer.id " + layer.id);
     });
-    */
+    
     
     //
     // the basic map and controls
@@ -152,5 +153,80 @@ function initMap () {
               MAP.scrollZoom.enable();
             }
         });
+
+        // Earthquake map points - These are not yet clickable.
+        MAP.addSource('earthquakes', {
+            type: 'geojson',
+            // Use a URL for the value for the `data` property.
+            data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson'
+        });
+        MAP.addLayer({
+            'id': 'earthquakes-layer',
+            'type': 'circle',
+            'source': 'earthquakes',
+            'paint': {
+            'circle-radius': 4,
+            'circle-stroke-width': 2,
+            'circle-color': 'red',
+            'circle-stroke-color': 'white'
+            }
+        });
+
+    });
+
+    // Layer List
+    // After the last frame rendered before the map enters an "idle" state.
+    MAP.on('idle', () => {
+        // Not source-layer.  What's the name of the borders layer?
+        // If these two layers were not added to the map, abort
+        if (!MAP.getLayer('source-layer') || !MAP.getLayer('earthquakes-layer')) {
+        //return;
+        }
+         
+        // Enumerate ids of the layers.
+        const toggleableLayerIds = ['source-layer', 'earthquakes-layer'];
+         
+        // Set up the corresponding toggle button for each layer.
+        for (const id of toggleableLayerIds) {
+            // Skip layers that already have a button set up.
+            if (document.getElementById(id)) {
+                continue;
+            }
+             
+            // Create a link.
+            const link = document.createElement('a');
+            link.id = id;
+            link.href = '#';
+            link.textContent = id;
+            link.className = 'active';
+             
+            // Show or hide layer when the toggle is clicked.
+            link.onclick = function (e) {
+            const clickedLayer = this.textContent;
+            e.preventDefault();
+            e.stopPropagation();
+             
+            const visibility = MAP.getLayoutProperty(
+            clickedLayer,
+            'visibility'
+            );
+             
+            // Toggle layer visibility by changing the layout object's visibility property.
+            if (visibility === 'visible') {
+                MAP.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                MAP.setLayoutProperty(
+                    clickedLayer,
+                    'visibility',
+                    'visible'
+                );
+            }
+            };
+             
+            const layers = document.getElementById('menu');
+            layers.appendChild(link);
+        }
     });
 }
