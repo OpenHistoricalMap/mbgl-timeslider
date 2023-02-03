@@ -39,13 +39,6 @@ function initMap () {
     // that greatly reduces the flash of un-date-filtered content before the TimeSlider is effective
     //
 
-    var theregex = /^#(\d+\.?\d+)\/(\-?\d+\.\d+)\/(\-?\d+\.\d+)\//;
-    var thematch = location.hash.match(theregex);
-    if (thematch) {
-        START_ZOOM = parseFloat(thematch[1]);
-        START_CENTER = [ parseFloat(thematch[3]), parseFloat(thematch[2]) ];
-    }
-
     var hide_these_layers_until_startup = [];
     GLMAP_STYLE
     .layers
