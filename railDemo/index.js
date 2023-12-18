@@ -9,7 +9,7 @@ const OHM_SOURCE = "osm";
 const STARTING_DATE = 1850;
 const DATE_RANGE = [ -4000, (new Date()).getFullYear() - 1 ];
 
-const MAP_STYLE_URL = "https://openhistoricalmap.github.io/map-styles/ohm_timeslider_tegola/tegola-ohm-draft.json";
+const MAP_STYLE_URL = "https://openhistoricalmap.github.io/map-styles/rail/rail.json";
 
 let MAP, TIMESLIDER, GLMAP_STYLE;
 
