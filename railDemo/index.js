@@ -2,7 +2,7 @@
 // data ranges -4000-2020
 
 let START_ZOOM = 13;
-let START_CENTER = [49,13.6];
+let START_CENTER = [49,8.41]; 
 
 const OHM_SOURCE = "osm";
 

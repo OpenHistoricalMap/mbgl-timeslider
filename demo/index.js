@@ -2,7 +2,7 @@
 // data ranges -4000-2020
 
 let START_ZOOM = 13;
-let START_CENTER = [-0.0632,51.4986];
+let START_CENTER = [51.5066/-0.0824];
 const OHM_SOURCE = "osm";
 
 const STARTING_DATE = 1850;
