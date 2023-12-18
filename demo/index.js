@@ -1,9 +1,8 @@
 // demo: rendering test bed
 // data ranges -4000-2020
 
-let START_ZOOM = 4;
-let START_CENTER = [-98,36];
-
+let START_ZOOM = 13;
+let START_CENTER = [-0.0632,51.4986];
 const OHM_SOURCE = "osm";
 
 const STARTING_DATE = 1850;
