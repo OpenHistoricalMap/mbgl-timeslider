@@ -1,5 +1,10 @@
 # Open Historical Map: TimeSlider Control for Mapbox GL JS API
 
+>[!WARNING]
+> This repository was archived on 11 June 2024 because this plugin has not been maintained for several years.
+>
+> Perhaps [OpenHistoricalMap/leaflet-ohm-timeslider-v2](https://github.com/OpenHistoricalMap/leaflet-ohm-timeslider-v2/) will suit your needs?
+
 This code was originally created as part of a set of map demos in this repo: https://github.com/Open-Historical-Map-Labs/openhistoricaltiles/tree/gh-pages
 
 This new repo extracts just the timeslider for further development and ongoing use in production OHM.
